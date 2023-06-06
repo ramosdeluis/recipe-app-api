@@ -5,7 +5,7 @@
     ? Description: Test for the user API.
 
 """
-from audioop import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -53,7 +53,7 @@ class PublicUserApiTests(TestCase):
 
         create_user(**payload)
 
-        res = self.client.port(CREATE_USER_URL, payload)
+        res = self.client.post(CREATE_USER_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
