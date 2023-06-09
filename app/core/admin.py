@@ -53,3 +53,4 @@ admin.site.register(
     UserAdmin,
 )
 admin.site.register(models.Recipe)
+admin.site.register(models.Tag)
