@@ -6,10 +6,6 @@
 
 """
 from decimal import Decimal
-from doctest import Example
-import email
-from os import link
-from venv import create
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase
