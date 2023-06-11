@@ -5,6 +5,7 @@
     ? Description: Tests for the tags API.
 
 """
+from os import name
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import TestCase
@@ -97,3 +98,17 @@ class PrivateTagsApiTests(TestCase):
         tag.refresh_from_db()
 
         self.assertEqual(tag.name, payload["name"])
+
+    def test_delete_tag(self):
+        """Test deleting tag."""
+
+        tag = Tag.objects.create(user=self.user, name="TestTag")
+
+        url = detail_url(tag.id)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+
+        tags = Tag.objects.filter(id=tag.id).exists()
+
+        self.assertFalse(tags)
