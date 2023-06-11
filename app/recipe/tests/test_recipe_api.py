@@ -13,7 +13,6 @@ from django.urls import reverse
 
 from rest_framework import status
 from rest_framework.test import APIClient
-from app import recipe
 
 from core.models import (
     Recipe,
@@ -310,7 +309,7 @@ class PrivateRecipeApiTests(TestCase):
         recipes = Recipe.objects.filter(user=self.user)
         self.assertEqual(recipes.count(), 1)
 
-        recipes = recipes[0]
+        recipe = recipes[0]
         self.assertEqual(recipe.tags.count(), 2)
         self.assertIn(tag, recipe.tags.all())
 
