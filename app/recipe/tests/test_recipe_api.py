@@ -274,7 +274,7 @@ class PrivateRecipeApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
 
-        recipes = Tag.objects.filter(user=self.user)
+        recipes = Recipe.objects.filter(user=self.user)
 
         self.assertEqual(recipes.count(), 1)
 
