@@ -103,9 +103,11 @@ class PrivateIngredientsTests(TestCase):
         self.assertEqual(ingredient.name, payload["name"])
 
     def test_delete_ingredient(self):
-        """ Test delete an ingredient is successful. """
-    
-        ingredient = Ingredient.objects.create(user=self.user, name='TestIngName')
+        """Test delete an ingredient is successful."""
+
+        ingredient = Ingredient.objects.create(
+            user=self.user, name="TestIngName"
+        )
 
         url = detail_url(ingredient.id)
         res = self.client.delete(url)
