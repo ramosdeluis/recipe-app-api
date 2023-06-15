@@ -88,7 +88,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         """Update recipe."""
 
         tags = validated_data.pop("tags", None)
-        ingredients = validated_data.pop('ingredients', None)
+        ingredients = validated_data.pop("ingredients", None)
 
         if ingredients is not None:
             instance.ingredients.clear()
@@ -110,3 +110,13 @@ class RecipeDetailSerializer(RecipeSerializer):
 
     class Meta(RecipeSerializer.Meta):
         fields = RecipeSerializer.Meta.fields + ["description"]
+
+
+class RecipeImageSerializer(serializers.ModelSerializer):
+    """Serializer for uploading images to recipes."""
+
+    class Meta:
+        model = Recipe
+        fields = ["id", "image"]
+        read_only_fields = ["id"]
+        extra_kwargs = {"image": {"required": "True"}}

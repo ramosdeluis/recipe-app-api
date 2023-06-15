@@ -9,7 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-q#$t5+d3)_d7qxdjkfat85wsmjyt7$pocwnq(50@g1jl8i(six"
+SECRET_KEY = (
+    "django-insecure-q#$t5+d3)_d7qxdjkfat85wsmjyt7$pocwnq(50@g1jl8i(six"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -118,8 +120,8 @@ USE_TZ = True
 STATIC_URL = "/static/static/"
 MEDIA_URL = "/static/media/"
 
-STATIC_ROOT = "/vol/web/static"
 MEDIA_ROOT = "/vol/web/media"
+STATIC_ROOT = "/vol/web/static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -130,4 +132,8 @@ AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "COMPONENT_SPLIT_REQUEST": True,
 }
