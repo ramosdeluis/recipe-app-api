@@ -73,6 +73,7 @@ class Recipe(models.Model):
     tags = models.ManyToManyField("Tag")
     ingredients = models.ManyToManyField("Ingredient")
     image = models.ImageField(null=True, upload_to=recipe_image_file_path)
+    portions = models.DecimalField(max_digits=3, decimal_places=1, null=True)
 
     def __str__(self) -> str:
         return self.title
