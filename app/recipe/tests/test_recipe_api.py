@@ -176,6 +176,7 @@ class PrivateRecipeApiTests(TestCase):
             "price": Decimal("12.34"),
             "time_minutes": 20,
             "portions": 2.5,
+            "difficulty": 5,
         }
 
         res = self.client.post(RECIPES_URL, payload)
@@ -582,3 +583,15 @@ class ImageUploadTests(TestCase):
         res = self.client.post(url, payload, format="multipart")
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_recipe_with_wrong_difficulty(self):
+        """Creating a recipe with a no valid difficulty (<0 or >5)"""
+
+        payload_one = {"difficulty": 6}
+        payload_two = {"difficulty": -1}
+
+        res_one = self.client.post(RECIPES_URL, payload_one)
+        res_two = self.client.post(RECIPES_URL, payload_two)
+
+        self.assertEqual(res_one.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(res_two.status_code, status.HTTP_400_BAD_REQUEST)

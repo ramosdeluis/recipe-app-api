@@ -96,7 +96,7 @@ class PrivateIngredientsTests(TestCase):
             user=self.user, name="TestIngName"
         )
 
-        payload = {"name": "NewIngTestName"}
+        payload = {"name": "NewIngTestName", 'amount': '10'}
         url = detail_url(ingredient.id)
         res = self.client.patch(url, payload)
 
