@@ -48,10 +48,14 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
+class RecipeAdmin(admin.ModelAdmin):
+    readonly_fields = ["timestamp", "updated"]
+
+
 admin.site.register(
     models.User,
     UserAdmin,
 )
-admin.site.register(models.Recipe)
+admin.site.register(models.Recipe, RecipeAdmin)
 admin.site.register(models.Tag)
 admin.site.register(models.Ingredient)

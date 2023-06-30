@@ -5,6 +5,7 @@
     ? Description: Tests for recipe APIs.
 
 """
+from datetime import datetime
 from decimal import Decimal
 import tempfile
 import os
@@ -13,6 +14,7 @@ from PIL import Image
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -595,3 +597,23 @@ class ImageUploadTests(TestCase):
 
         self.assertEqual(res_one.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(res_two.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_if_when_create_a_recipe_timestamp_is_correct(self):
+        """Testing if the timestamp is correctly created"""
+
+        payload = {
+            "title": "Test title",
+            "price": Decimal("12.34"),
+            "time_minutes": 20,
+            "portions": 2.5,
+            "difficulty": 5,
+        }
+
+        res = self.client.post(RECIPES_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+
+        recipe = Recipe.objects.get(id=res.data["id"])
+        recipe = RecipeDetailSerializer(recipe)
+
+        self.assertIsNotNone(recipe.data["timestamp"])
+        self.assertNotEqual(recipe.data["timestamp"], "")

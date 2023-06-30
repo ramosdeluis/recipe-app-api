@@ -5,6 +5,7 @@ import uuid
 import os
 
 from django.core.validators import MaxValueValidator
+from django.utils import timezone
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
@@ -78,6 +79,12 @@ class Recipe(models.Model):
     difficulty = models.PositiveSmallIntegerField(
         default=0, validators=[MaxValueValidator(5)]
     )
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    publish = models.DateField(
+        auto_now=False, auto_now_add=False, null=True, blank=True
+    )
+    
 
     def __str__(self) -> str:
         return self.title
